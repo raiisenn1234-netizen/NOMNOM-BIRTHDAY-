@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Birthday Surprise ♡</title>
+<style>
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+margin:0;min-height:100vh;overflow-x:hidden;
+background:
+radial-gradient(circle at 10% 8%,#ffd8e8 0 10%,transparent 28%),
+radial-gradient(circle at 92% 18%,#d9edff 0 11%,transparent 30%),
+radial-gradient(circle at 48% 100%,#e7dcff 0 12%,transparent 34%),#fff9fc;
+color:#4d4054;font-family:Georgia,"Times New Roman",serif
+}
+.page{display:none;min-height:100vh;padding:50px 18px;align-items:center;justify-content:center;position:relative;animation:fade .6s ease}
+.page.active{display:flex}
+@keyframes fade{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+.container{width:min(900px,100%);text-align:center;position:relative}
+h1,h2{font-family:cursive;color:#945b85}
+h1{font-size:clamp(38px,8vw,68px);margin:10px 0}
+h2{font-size:clamp(28px,6vw,46px);margin:8px 0 18px}
+h3{color:#a05f8d}
+p{font-size:17px;line-height:1.75}
+.sub{font-size:14px;color:#8b7b91}
+button{
+border:0;border-radius:30px;padding:13px 24px;margin:10px 5px;
+background:#f3b7d3;color:#604258;font-weight:bold;cursor:pointer;
+box-shadow:0 7px 18px #9f739225;transition:.25s
+}
+button:hover{transform:translateY(-3px);background:#cfe8ff}
+.doodle{position:absolute;pointer-events:none;opacity:.7}
+.star{color:#a78bc4;font-size:28px}.heart{color:#e39ab8;font-size:27px}
+.flower{color:#8fb9df;font-size:28px}.sparkle{color:#ad93ca;font-size:23px}
+.intro-card,.final-card{
+background:#ffffffc7;border:2px solid #fff;border-radius:32px;padding:45px 24px;
+box-shadow:0 18px 50px #8f6d9025;backdrop-filter:blur(5px)
+}
+.note{
+width:min(720px,100%);margin:25px auto;padding:29px 24px;border-radius:22px;
+text-align:left;box-shadow:0 12px 28px #8d6b8d20;position:relative
+}
+.note:before{content:"";position:absolute;width:76px;height:19px;background:#fff8;top:-9px;left:50%;transform:translateX(-50%) rotate(-2deg)}
+.note.pink{background:#ffe1ed}.note.blue{background:#def0ff}.note.lav{background:#e9e0ff}
+.photo-frame{
+width:min(560px,100%);margin:28px auto;padding:12px 12px 25px;background:#fff;
+box-shadow:0 15px 30px #6f56701e;transform:rotate(-1deg)
+}
+.photo-frame:nth-of-type(even){transform:rotate(1.2deg)}
+.photo-frame img{width:100%;height:auto;display:block;object-fit:contain}
+.caption{margin-top:12px;font-size:16px;color:#806981;font-family:cursive}
+.chat{width:min(650px,100%);margin:20px auto;display:flex;flex-direction:column;gap:10px}
+.bubble{max-width:82%;padding:13px 17px;border-radius:20px;text-align:left;font:14px Arial,sans-serif;line-height:1.5;box-shadow:0 5px 15px #7771}
+.bubble.left{align-self:flex-start;background:#e0efff;border-bottom-left-radius:6px}
+.bubble.right{align-self:flex-end;background:#ffe0ed;border-bottom-right-radius:6px}
+.memory-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:25px;margin-top:30px}
+.memory-card{background:#fff;padding:12px 12px 20px;box-shadow:0 12px 28px #80647d20;transform:rotate(-1.4deg);position:relative}
+.memory-card:nth-child(even){transform:rotate(1.5deg)}
+.memory-card img{width:100%;height:auto;display:block;object-fit:contain}
+.memory-card p{font-family:cursive;font-size:16px;margin:12px 5px 0;color:#78627c}
+.tape{width:70px;height:18px;background:#e8dcffb8;position:absolute;top:-8px;left:50%;transform:translateX(-50%) rotate(-3deg)}
+.gifts{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:30px}
+.gift-card{background:#fff;padding:12px 12px 18px;border-radius:20px;box-shadow:0 12px 28px #80647d20}
+.gift-card img{width:100%;height:auto;display:block;object-fit:contain;border-radius:14px}
+.gift-card h3{font-family:cursive;font-size:20px}
+
+/* THREE TIER CAKE */
+.cake-stage{width:330px;height:350px;margin:20px auto;position:relative}
+.tier{position:absolute;left:50%;transform:translateX(-50%);border-radius:18px 18px 25px 25px;
+box-shadow:inset 0 -12px #e7a9c9,0 13px 25px #74566d22}
+.tier:before{content:"";position:absolute;left:0;right:0;top:-11px;height:32px;border-radius:50%;background:#fff5fa}
+.tier:after{content:"••••••••";letter-spacing:9px;position:absolute;left:25px;right:0;top:2px;color:#d994b8;font-size:16px}
+.tier1{width:275px;height:88px;bottom:20px;background:#f4bfd9}
+.tier2{width:220px;height:76px;bottom:88px;background:#f8d7e7}
+.tier3{width:165px;height:65px;bottom:145px;background:#d9c9f0}
+.cream{position:absolute;height:25px;border-radius:50%;background:#fff;z-index:4}
+.cream.c1{width:80px;bottom:91px;left:125px}
+.cream.c2{width:62px;bottom:151px;left:135px}
+.cream.c3{width:45px;bottom:202px;left:144px}
+.drip{position:absolute;background:#fff;border-radius:0 0 12px 12px;width:18px;height:30px;z-index:5}
+.drip.d1{left:105px;bottom:77px}.drip.d2{left:180px;bottom:77px}.drip.d3{left:147px;bottom:137px}
+.cake-candle{position:absolute;width:13px;height:55px;left:158px;bottom:208px;background:#a9d2f1;border-radius:5px;z-index:8}
+.cake-flame{position:absolute;width:20px;height:27px;left:155px;bottom:259px;background:#ffb65c;border-radius:50% 50% 50% 5%;transform:rotate(45deg);z-index:9;box-shadow:0 0 18px #ffb65c99;transition:.4s}
+.mic-wrap{margin-top:0}
+.mic{
+display:inline-flex;align-items:center;gap:9px;padding:12px 20px;border-radius:28px;
+background:#fff;border:2px solid #efbfd5;box-shadow:0 8px 20px #8d6b8d22;color:#6c4b62;
+font-weight:bold
+}
+.mic-dot{width:10px;height:10px;border-radius:50%;background:#e99abb;display:inline-block}
+.mic.listening .mic-dot{animation:pulse .7s infinite}
+@keyframes pulse{50%{transform:scale(1.6);opacity:.45}}
+.cake-done{font-family:cursive;color:#9c648a}
+
+/* VINTAGE LETTER */
+.letter-wrap{width:min(700px,100%);margin:30px auto;position:relative}
+.letter{
+position:relative;min-height:470px;padding:52px 48px 45px 62px;text-align:left;overflow:hidden;
+background:
+radial-gradient(ellipse at 12% 20%,#9a63362a,transparent 24%),
+radial-gradient(ellipse at 88% 76%,#8c572e25,transparent 25%),
+linear-gradient(90deg,#ead0a2,#f5dfb8 8%,#f7e4c0 50%,#eed3a4 92%,#d7b681);
+border:1px solid #bd9360;
+box-shadow:0 20px 45px #6e51372d;
+clip-path:polygon(1% 3%,5% 1%,10% 3%,17% 1%,24% 3%,32% 1%,40% 3%,48% 1%,56% 3%,65% 1%,73% 3%,82% 1%,91% 3%,98% 1%,97% 10%,99% 18%,97% 27%,99% 36%,97% 46%,99% 55%,97% 65%,99% 74%,97% 83%,99% 96%,91% 98%,83% 96%,75% 99%,67% 97%,59% 99%,51% 97%,43% 99%,35% 97%,27% 99%,19% 97%,11% 99%,3% 96%,4% 88%,2% 79%,4% 69%,2% 60%,4% 50%,2% 41%,4% 31%,2% 21%,4% 12%);
+}
+.letter:before{
+content:"";position:absolute;inset:0;
+background:repeating-linear-gradient(to bottom,transparent 0,transparent 31px,#9b73453a 32px);
+pointer-events:none
+}
+.letter:after{
+content:"";position:absolute;inset:0;
+background:linear-gradient(90deg,#74451d30,transparent 12%,transparent 86%,#75491e27),
+radial-gradient(circle at 50% 50%,transparent 45%,#6e431d22 100%);
+pointer-events:none
+}
+.letter-content{position:relative;z-index:2}
+.letter-title{font-family:cursive;color:#70462c;font-size:27px;margin-bottom:20px}
+.hidden-message{opacity:0;filter:blur(7px);transition:1s}
+.hidden-message.revealed{opacity:1;filter:blur(0)}
+.drag-candle{
+width:27px;height:68px;background:#b9d7ef;border-radius:7px;position:absolute;right:30px;top:24px;
+cursor:grab;z-index:10;box-shadow:0 6px 15px #513c2c40
+}
+.drag-flame{
+position:absolute;width:25px;height:31px;background:#ffad4f;left:1px;top:-25px;
+border-radius:50% 50% 50% 5%;transform:rotate(45deg);box-shadow:0 0 20px #ff9f3eaa
+}
+/* actual digital burn marks */
+.burn{
+position:absolute;width:75px;height:75px;pointer-events:none;z-index:6;opacity:0;
+transform:translate(-50%,-50%) scale(.3);
+transition:opacity .15s,transform .25s;
+border-radius:48% 52% 43% 57%;
+background:
+radial-gradient(circle,#ffcf69 0 7%,#f26d24 12%,#8c2f1d 22%,#2d211c 36%,transparent 38%),
+conic-gradient(from 30deg,#ffb12f,#6e2418,#ff7a1f,#2b201b,#ffb12f);
+filter:drop-shadow(0 0 8px #ff6a2388);
+mix-blend-mode:multiply
+}
+.burn.show{opacity:1;transform:translate(-50%,-50%) scale(1)}
+.burn:after{
+content:"";position:absolute;inset:-17px;border-radius:50%;
+background:
+radial-gradient(ellipse at 30% 30%,#ffb23e 0 5%,transparent 8%),
+radial-gradient(ellipse at 60% 20%,#f36b28 0 5%,transparent 8%),
+radial-gradient(ellipse at 78% 45%,#ffca5c 0 4%,transparent 8%);
+filter:blur(1px)
+}
+.smoke{
+position:absolute;width:12px;height:30px;border-radius:50%;background:#55453d55;
+filter:blur(5px);opacity:.7;animation:smoke 1.2s ease-out forwards;z-index:7
+}
+@keyframes smoke{
+to{transform:translateY(-35px) translateX(15px) scale(1.7);opacity:0}
+}
+@media(max-width:650px){
+.page{padding:35px 14px}
+.intro-card,.final-card{padding:35px 18px}
+.memory-grid,.gifts{grid-template-columns:1fr}
+.note{padding:25px 18px}
+.letter{padding:48px 28px 42px 40px;min-height:440px}
+.cake-stage{transform:scale(.88);margin-top:-5px;margin-bottom:-20px}
+}
+</style>
+</head>
+<body>
+
+<section class="page active" id="intro"><div class="container">
+<span class="doodle star" style="top:2%;left:8%">✦</span><span class="doodle heart" style="top:8%;right:9%">♡</span>
+<span class="doodle flower" style="bottom:5%;left:12%">✿</span><span class="doodle sparkle" style="bottom:12%;right:10%">✧</span>
+<div class="intro-card"><p class="sub">a tiny digital scrapbook made with love ♡</p><h1>HAPPY BIRTHDAY</h1><h2>to my favourite baklol ✿</h2><p>Okayyy... your birthday surprise starts here.</p><button onclick="go('misunderstanding')">open the story →</button></div>
+</div></section>
+
+<section class="page" id="misunderstanding"><div class="container">
+<h2>before all the chaos...</h2><div class="note pink"><div class="tape"></div>
+<p>There was a misunderstanding between us before we actually became friends. Things were messy, unsolved and honestly... a little awkward.</p>
+<p>But somehow, the story decided that this was definitely NOT the end.</p></div>
+<button onclick="go('gc')">and then... →</button></div></section>
+
+<section class="page" id="gc"><div class="container"><h2>then came the GC ✿</h2>
+<div class="note blue"><p>Somehow I got added to the GC...</p><p>And little did we know that this random group chat was about to become our personal adda of chaos.</p></div>
+<button onclick="go('admin')">next →</button></div></section>
+
+<section class="page" id="admin"><div class="container"><h2>the admin era began</h2>
+<div class="photo-frame"><img src="admin.jpg" alt="Admin memory"><div class="caption">the moment the GC officially entered chaos mode ✿</div></div>
+<div class="note lav"><p>Then I took adminship and somehow the GC became a whole adda. From there... things started getting fun.</p></div>
+<button onclick="go('reel')">continue →</button></div></section>
+
+<section class="page" id="reel"><div class="container"><h2>our first proper conversation ♡</h2>
+<div class="note pink"><p>After all those unsolved misunderstandings, the first time we actually talked was about a reel.</p></div>
+<div class="photo-frame"><img src="reel.jpg" alt="Reel conversation"><div class="caption">and apparently... a reel was enough to start everything ✿</div></div>
+<button onclick="go('random')">then came the random talks →</button></div></section>
+
+<section class="page" id="random"><div class="container"><h2>randomass conversations</h2>
+<div class="chat"><div class="bubble left">one random topic...</div><div class="bubble right">then another random topic...</div><div class="bubble left">and somehow we kept talking 😭</div><div class="bubble right">normal conversations? never heard of them.</div></div>
+<div class="photo-frame"><img src="chat.jpg" alt="Random conversations"><div class="caption">the conversations were random. the friendship was not. ♡</div></div>
+<button onclick="go('nicknames')">next chaos →</button></div></section>
+
+<section class="page" id="nicknames"><div class="container"><h2>the weird nickname era</h2>
+<div class="note blue"><p>Somewhere along the way, normal names stopped existing.</p><p>Weird nicknames became the official language.</p></div>
+<div class="photo-frame"><img src="nicknames.jpg" alt="Nickname conversation"><div class="caption">why were the nicknames like THAT 😭</div></div>
+<button onclick="go('trolling')">keep going →</button></div></section>
+
+<section class="page" id="trolling"><div class="container"><h2>then we discovered trolling</h2>
+<div class="note lav"><p>Friendship level unlocked: trolling each other for absolutely no reason.</p></div>
+<div class="photo-frame"><img src="trolling.jpg" alt="Trolling conversation"><div class="caption">professional nonsense behaviour ✿</div></div>
+<button onclick="go('stickers')">and then... →</button></div></section>
+
+<section class="page" id="stickers"><div class="container"><h2>THE STICKER WAR</h2>
+<div class="note pink"><p>And finally...</p><p>the ultimate sticker war.</p></div>
+<div class="photo-frame"><img src="stickers.jpg" alt="Sticker war"><div class="caption">no one won. everyone suffered. ♡</div></div>
+<button onclick="go('memories')">our memories →</button></div></section>
+
+<section class="page" id="memories"><div class="container"><h2>little pieces of us ♡</h2><p class="sub">six screenshots. one very chaotic friendship.</p>
+<div class="memory-grid">
+<div class="memory-card"><img src="admin.jpg"><p>the admin era</p></div>
+<div class="memory-card"><img src="reel.jpg"><p>the first reel conversation</p></div>
+<div class="memory-card"><img src="chat.jpg"><p>randomass conversations</p></div>
+<div class="memory-card"><img src="nicknames.jpg"><p>the nickname crimes</p></div>
+<div class="memory-card"><img src="trolling.jpg"><p>professional trolling</p></div>
+<div class="memory-card"><img src="stickers.jpg"><p>the sticker war</p></div>
+</div><button onclick="go('gifts')">there's more →</button></div></section>
+
+<section class="page" id="gifts"><div class="container"><h2>tiny birthday gifts ✿</h2><p class="sub">because one birthday surprise is obviously not enough.</p>
+<div class="gifts">
+<div class="gift-card"><img src="Gift.jpg"><h3>a little gift</h3></div>
+<div class="gift-card"><img src="flower.jpg"><h3>flowers ♡</h3></div>
+<div class="gift-card"><img src="chocolate.jpg"><h3>something sweet</h3></div>
+</div><button onclick="go('cake')">wait... there's cake →</button></div></section>
+
+<section class="page" id="cake"><div class="container">
+<h2>make a wish ♡</h2><p>Allow microphone access, then blow toward your phone to blow out the candle.</p>
+<div class="cake-stage">
+<div class="tier tier1"></div><div class="tier tier2"></div><div class="tier tier3"></div>
+<div class="cream c1"></div><div class="cream c2"></div><div class="cream c3"></div>
+<div class="drip d1"></div><div class="drip d2"></div><div class="drip d3"></div>
+<div class="cake-candle"></div><div class="cake-flame" id="cakeFlame"></div>
+</div>
+<div class="mic-wrap"><button class="mic" id="micButton" onclick="startMic()"><span class="mic-dot"></span> 🎙 Blow the candle</button></div>
+<p id="cakeText" class="cake-done"></p>
+<button onclick="go('letter')" id="letterBtn" style="display:none">open the secret letter →</button>
+</div></section>
+
+<section class="page" id="letter"><div class="container">
+<h2>one last little thing ♡</h2>
+<p>Drag the digital candle over the vintage paper. Wherever the flame touches, the paper will digitally burn.</p>
+<div class="letter-wrap">
+<div class="letter" id="letterPaper">
+<div class="letter-content">
+<div class="letter-title">a little birthday letter ♡</div>
+<div class="hidden-message" id="hiddenMessage">
+<h3>Happy Birthday ♡</h3><p></p><p></p>
+</div>
+</div>
+<div class="drag-candle" id="dragCandle"><div class="drag-flame"></div></div>
+</div>
+</div>
+<p class="sub">touch and drag on phone • click and drag on laptop</p>
+<button onclick="go('final')">finish the surprise →</button>
+</div></section>
+
+<section class="page" id="final"><div class="container">
+<span class="doodle star" style="top:8%;left:10%">✦</span><span class="doodle heart" style="top:12%;right:9%">♡</span>
+<span class="doodle flower" style="bottom:10%;left:12%">✿</span><span class="doodle sparkle" style="bottom:8%;right:12%">✧</span>
+<div class="final-card"><p class="sub">and that's the whole little story...</p><h1>HAPPY BIRTHDAY ♡</h1><h2>you absolute baklol ✿</h2>
+<p>Here's to more chaos, random conversations, trolling, stickers and memories.</p>
+<button onclick="location.reload()">replay ↻</button></div></div></section>
+
+<script>
+function go(id){
+document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
+document.getElementById(id).classList.add("active");
+window.scrollTo({top:0,behavior:"smooth"});
+}
+
+/* MICROPHONE CANDLE */
+let audioContext,analyser,micStream,micActive=false;
+async function startMic(){
+if(micActive)return;
+const btn=document.getElementById("micButton");
+try{
+micStream=await navigator.mediaDevices.getUserMedia({audio:true});
+audioContext=new (window.AudioContext||window.webkitAudioContext)();
+const source=audioContext.createMediaStreamSource(micStream);
+analyser=audioContext.createAnalyser();
+analyser.fftSize=256;
+source.connect(analyser);
+micActive=true;
+btn.classList.add("listening");
+btn.innerHTML='<span class="mic-dot"></span> 🎙 Blow now...';
+detectBlow();
+}catch(e){
+btn.innerHTML="🎙 Microphone permission needed";
+}
+}
+function detectBlow(){
+if(!micActive)return;
+const data=new Uint8Array(analyser.frequencyBinCount);
+analyser.getByteFrequencyData(data);
+let sum=0;
+for(let i=0;i<data.length;i++)sum+=data[i];
+const volume=sum/data.length;
+if(volume>45){
+micActive=false;
+if(micStream)micStream.getTracks().forEach(t=>t.stop());
+if(audioContext)audioContext.close();
+document.getElementById("cakeFlame").style.opacity="0";
+document.getElementById("cakeFlame").style.transform="rotate(45deg) scale(.15)";
+document.getElementById("micButton").innerHTML="♡ candle blown!";
+document.getElementById("cakeText").textContent="wish made ✨ now open the secret letter";
+document.getElementById("letterBtn").style.display="inline-block";
+return;
+}
+requestAnimationFrame(detectBlow);
+}
+
+/* DIGITAL BURNING LETTER */
+const candle=document.getElementById("dragCandle");
+const paper=document.getElementById("letterPaper");
+const hidden=document.getElementById("hiddenMessage");
+let dragging=false,ox=0,oy=0;
+const burns=[];
+
+function pointer(e){
+return e.touches?e.touches[0]:e;
+}
+function startDrag(e){
+dragging=true;
+const r=candle.getBoundingClientRect(),p=pointer(e);
+ox=p.clientX-r.left;oy=p.clientY-r.top;
+e.preventDefault();
+}
+function burnAt(x,y){
+const b=document.createElement("div");
+b.className="burn show";
+b.style.left=x+"px";b.style.top=y+"px";
+paper.appendChild(b);burns.push(b);
+const s=document.createElement("div");
+s.className="smoke";s.style.left=(x+8)+"px";s.style.top=(y-15)+"px";
+paper.appendChild(s);
+setTimeout(()=>s.remove(),1300);
+if(burns.length>=6)hidden.classList.add("revealed");
+}
+let lastBurn=0;
+function moveDrag(e){
+if(!dragging)return;
+const p=pointer(e),pr=paper.getBoundingClientRect();
+let x=p.clientX-pr.left-ox,y=p.clientY-pr.top-oy;
+x=Math.max(0,Math.min(x,pr.width-candle.offsetWidth));
+y=Math.max(0,Math.min(y,pr.height-candle.offsetHeight));
+candle.style.left=x+"px";candle.style.top=y+"px";candle.style.right="auto";
+const now=Date.now();
+if(now-lastBurn>100){
+burnAt(x+candle.offsetWidth/2,y+10);
+lastBurn=now;
+}
+e.preventDefault();
+}
+function stopDrag(){dragging=false}
+candle.addEventListener("mousedown",startDrag);
+document.addEventListener("mousemove",moveDrag);
+document.addEventListener("mouseup",stopDrag);
+candle.addEventListener("touchstart",startDrag,{passive:false});
+document.addEventListener("touchmove",moveDrag,{passive:false});
+document.addEventListener("touchend",stopDrag);
+</script>
+</body>
+</html>
